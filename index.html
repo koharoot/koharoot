@@ -13,7 +13,7 @@
 
   <script>
     document.getElementById("send").onclick = async () => {
-      const text = document.getElementById("msg").value;
+      const text = document.getElementById("msg").value.trim();
 
       // GitHub Actions の workflow_dispatch を呼び出す
       await fetch("https://api.github.com/repos/koharoot/koharoot/actions/workflows/log.yml/dispatches", {
@@ -25,7 +25,7 @@
         body: JSON.stringify({
           ref: "main",
           inputs: {
-            message: text.trim()  // ← 全角スペースなし
+            "message": text  // ← キー名を明示的に文字列に
           }
         })
       });
