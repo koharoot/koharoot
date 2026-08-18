@@ -8,24 +8,10 @@
   <h1>koharoot</h1>
   <p>ここから送信できます。</p>
 
-  <button id="send">送信</button>
-
-  <script>
-    document.getElementById("send").onclick = () => {
-      fetch("https://api.github.com/repos/USER/koharoot/dispatches", {
-        method: "POST",
-        headers: {
-          "Accept": "application/vnd.github+json",
-          "Authorization": "Bearer YOUR_TOKEN"
-        },
-        body: JSON.stringify({
-          event_type: "site_send",
-          client_payload: {
-            message: "サイトから送信されたデータ"
-          }
-        })
-      });
-    };
-  </script>
+  <form action="https://api.github.com/repos/koharoot/koharoot/issues" method="POST">
+    <input type="hidden" name="title" value="サイトからの送信">
+    <textarea name="body">ここに送信内容が入ります</textarea>
+    <button type="submit">送信</button>
+  </form>
 </body>
 </html>
