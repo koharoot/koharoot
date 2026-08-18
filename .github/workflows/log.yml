@@ -1,24 +1,27 @@
 name: Save Log
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "メッセージ"
+        required: true
+        type: string
 
 jobs:
   save:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Append log
         run: |
-          echo "$(date) - $(cat message.txt)" >> logs.txt
+          echo "$(date) - ${{ github.event.inputs.message }}" >> logs.txt
 
-      - name: Commit and push changes
+      - name: Commit and push
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
