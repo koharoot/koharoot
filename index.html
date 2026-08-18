@@ -15,16 +15,18 @@
     document.getElementById("send").onclick = async () => {
       const text = document.getElementById("msg").value;
 
-      // message.txt を更新するための「push」を発生させる
-      await fetch("https://api.github.com/repos/koharoot/koharoot/contents/message.txt", {
-        method: "PUT",
+      // GitHub Actions の workflow_dispatch を呼び出す
+      await fetch("https://api.github.com/repos/koharoot/koharoot/actions/workflows/log.yml/dispatches", {
+        method: "POST",
         headers: {
           "Accept": "application/vnd.github+json",
-          // トークンは絶対に書かない（GitHub Pagesでは使えない）
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          message: "update message",
-          content: btoa(text)
+          ref: "main",
+          inputs: {
+            message: text
+          }
         })
       });
 
