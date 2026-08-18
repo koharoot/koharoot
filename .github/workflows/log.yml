@@ -1,8 +1,8 @@
 name: Save Log
 
 on:
-  issues:
-    types: [opened]
+  push:
+    branches: [main]
 
 jobs:
   save:
@@ -12,7 +12,7 @@ jobs:
 
       - name: Append log
         run: |
-          echo "$(date) - ${{ github.event.issue.body }}" >> logs.txt
+          echo "$(date) - $(cat message.txt)" >> logs.txt
 
       - name: Commit
         run: |
