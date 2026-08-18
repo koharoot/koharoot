@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>koharoot</title>
+</head>
+<body>
+  <h1>koharoot</h1>
+  <p>ここから送信できます。</p>
+
+  <button id="send">送信</button>
+
+  <script>
+    document.getElementById("send").onclick = () => {
+      fetch("https://api.github.com/repos/USER/koharoot/dispatches", {
+        method: "POST",
+        headers: {
+          "Accept": "application/vnd.github+json",
+          "Authorization": "Bearer YOUR_TOKEN"
+        },
+        body: JSON.stringify({
+          event_type: "site_send",
+          client_payload: {
+            message: "サイトから送信されたデータ"
+          }
+        })
+      });
+    };
+  </script>
+</body>
+</html>
