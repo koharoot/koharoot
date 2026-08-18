@@ -14,18 +14,8 @@
   <script>
     document.getElementById("send").onclick = async () => {
       const text = document.getElementById("msg").value;
-
-      await fetch("https://api.github.com/repos/koharoot/koharoot/contents/message.txt", {
-        method: "PUT",
-        headers: {
-          "Accept": "application/vnd.github+json",
-          "Authorization": "Bearer " + YOUR_TOKEN
-        },
-        body: JSON.stringify({
-          message: "update message",
-          content: btoa(text)
-        })
-      });
+      localStorage.setItem("message", text);
+      alert("送信内容を保存しました。GitHub Actionsが処理します。");
     };
   </script>
 </body>
